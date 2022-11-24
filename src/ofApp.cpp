@@ -1,12 +1,15 @@
 #include "ofApp.h"
 
-static const int NUM = 100;
+static const int NUM = 1000;
 
 float loc_x[NUM];//circle's x-coordinate
 float loc_y[NUM];//circle's y-coordinate
 float speed_x[NUM];//speed for  x-coordinate direction
 float speed_y[NUM];//speed for  y-coordinate direction
-
+float radius[NUM];
+int red[NUM];
+int green[NUM];
+int blue[NUM];
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0, 0, 0);
@@ -20,6 +23,10 @@ void ofApp::setup(){
         loc_y[i] = ofRandom(0,ofGetHeight());
         speed_x[i] = ofRandom(-10,10);
         speed_y[i] = ofRandom(-10,10);
+        radius[i] = ofRandom(4,40);
+        red[i] = ofRandom(0,255);
+        green[i] = ofRandom(0,255);
+        blue [i] = ofRandom(0,255);
     }
 }
 
@@ -51,9 +58,10 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetColor(255, 102, 255, 127);
+
     for(int i = 0; i < NUM; i++){
-        ofDrawCircle(loc_x[i], loc_y[i], 40);
+        ofSetColor(red[i], green[i], blue[i], 127);
+        ofDrawCircle(loc_x[i], loc_y[i], radius[i]);
     }
 }
 //--------------------------------------------------------------
