@@ -10,12 +10,14 @@ float radius[NUM];
 int red[NUM];
 int green[NUM];
 int blue[NUM];
+bool mouse_pressed;
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0, 0, 0);
     ofSetFrameRate(60);
     ofSetCircleResolution(64);
     ofEnableAlphaBlending();
+    mouse_pressed = false;
 
     //loop until num number
     for(int i = 0; i < NUM; i++){
@@ -34,6 +36,15 @@ void ofApp::setup(){
 void ofApp::update(){
     //loop num coordinate number
     for(int i =0; i < NUM; i++){
+
+        //If the mouse pressed that circle gather the mouse
+        if(mouse_pressed){
+            //re-calculate mouse coordinate and circle speed
+            //mouse x-coordinate and circle's x-coordinate distance close to 8/1
+            speed_x[i] = (mouseX - loc_x[i]) / 8.0;
+            //mouse y-coordinate and circle's y-coordinate distance close to 8/1
+            speed_y[i] = (mouseY - loc_y[i]) / 8.0;
+        }
         loc_x[i] = loc_x[i] + speed_x[i];//Update for circle's x-coordinate
         loc_y[i] = loc_y[i]+ speed_y[i];//Update for circle's y-coordinate
 
@@ -86,12 +97,18 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    mouse_pressed = true; //when the mouse pressed
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
+    mouse_pressed = false; //when the mouse released
 
+    //Initialization of the speed of the circle
+    for(int i = 0; i < NUM; i++){
+        speed_x[i] = ofRandom(-5,5);
+        speed_y[i] = ofRandom(-5,5);
+    }
 }
 
 //--------------------------------------------------------------
