@@ -11,6 +11,8 @@ int red[NUM];
 int green[NUM];
 int blue[NUM];
 bool mouse_pressed;
+float gravity;
+float friction;
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0, 0, 0);
@@ -18,6 +20,8 @@ void ofApp::setup(){
     ofSetCircleResolution(64);
     ofEnableAlphaBlending();
     mouse_pressed = false;
+    gravity = 0.1;//setting for the force of gravity
+    friction = 0.999;//setting for the the force of friction
 
     //loop until num number
     for(int i = 0; i < NUM; i++){
@@ -45,6 +49,12 @@ void ofApp::update(){
             //mouse y-coordinate and circle's y-coordinate distance close to 8/1
             speed_y[i] = (mouseY - loc_y[i]) / 8.0;
         }
+
+        speed_x[i] = speed_x[i] * friction;//calculate for x-coordinate distance's gravity effect
+        speed_y[i] = speed_y[i] * friction;//calculate for y-coordinate distance's gravity effect
+        speed_y[i] = speed_y[i] + gravity;//calculate for gravity's effect
+
+
         loc_x[i] = loc_x[i] + speed_x[i];//Update for circle's x-coordinate
         loc_y[i] = loc_y[i]+ speed_y[i];//Update for circle's y-coordinate
 
@@ -106,8 +116,8 @@ void ofApp::mouseReleased(int x, int y, int button){
 
     //Initialization of the speed of the circle
     for(int i = 0; i < NUM; i++){
-        speed_x[i] = ofRandom(-5,5);
-        speed_y[i] = ofRandom(-5,5);
+        speed_x[i] = ofRandom(-10,10);
+        speed_y[i] = ofRandom(-10,10);
     }
 }
 
