@@ -15,7 +15,7 @@ float gravity;
 float friction;
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofBackground(0, 0, 0);
+    ofSetBackgroundAuto(false);
     ofSetFrameRate(60);
     ofSetCircleResolution(64);
     ofEnableAlphaBlending();
@@ -79,6 +79,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    //Fade out to black screen
+    ofSetColor(0, 0, 0,23);
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
 
     for(int i = 0; i < NUM; i++){
         ofSetColor(red[i], green[i], blue[i], 127);
